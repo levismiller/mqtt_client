@@ -1,8 +1,8 @@
 # mqtt_client
 
 
-# git clone git@github.com:levismiller/mqtt_client.git
 ```
+git clone git@github.com:levismiller/mqtt_client.git
 cd mqtt_client
 virtualenv -p python3 venv
 source venv/bin/activate
