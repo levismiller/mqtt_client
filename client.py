@@ -19,8 +19,8 @@ client = None
 
 TOPIC_PUB = 'fortem/skydome/device/register'
 TOPIC_SUB = 'fortem/skydome/status'
-# BROKER_ADDR = '127.0.0.1'
-BROKER_ADDR = '10.10.12.241'
+BROKER_ADDR = '127.0.0.1'
+# BROKER_ADDR = '10.10.12.241'
 BROKER_PORT = 1883
 BROKER_WAIT = 60
 
@@ -94,6 +94,7 @@ def broadcastStatus():
 
     encoded = msgpack.packb(status, use_bin_type=False)
     status_topic = f'fortem/{device_type}/{client_id}/status'
+    print('status_topic', status_topic)
     client.publish(status_topic, payload=encoded, qos=0, retain=False)
 
 
