@@ -4,7 +4,6 @@ import random
 import sys
 import threading
 from time import sleep
-import time
 
 import paho.mqtt.client as mqtt
 import msgpack
@@ -28,6 +27,8 @@ BROKER_WAIT = 60
 unique = random.uniform(0, 45)
 client_id = 'AUJD6-OSKJD-S8JD7-KSUSN' + str(unique)
 device_type = 'camera'
+
+
 # device_type = 'hanger'
 
 def on_message(client, userdata, msg):
@@ -37,6 +38,7 @@ def on_message(client, userdata, msg):
 def on_connect(client, userdata, flags, rc):
     logging.info("MQTT: Client connected with result code " + str(rc))
     client.subscribe(TOPIC_SUB)
+
 
 def mqtt_connection():
     global client
@@ -60,7 +62,7 @@ def broadcastStatus():
     status = {
         "clientId": client_id,
         "type": device_type,
-        "ts": 1562615160,
+        "ts": 1562615160123,
         "mqtt": {
             "host": "localhost",
             "port": 1883
@@ -74,37 +76,19 @@ def broadcastStatus():
             "predict_ahead_time": 1.5
         },
         "throttle_ptz_speed": True,
-        "record_video": True,
+        "record": {
+            "record_video": True,
+            "segment_time_s": "60",
+            "recording_dir": "/mnt/seagate/recordings"
+        },
         "broadcast_rate_hz": 5,
         "stream_url": "ws:10.10.12.111/8003",
-        "lla": [
-            40.34562,
-            -111.79710,
-            1360.7
-        ],
-        "profile": {
-            "hostname": "10.10.12.104",
-            "lens_fov_degrees": 112.5,
-            "username": "fortem_ONVIF",
-            "password": "[H0r0x357]",
-            "ONVIF": {
-                "port": 80,
-                "path": "/etc/onvif/wsdl/"
-            },
-            "stream": {
-                "port": 554,
-                "path": ""
-            },
-            "lla": [
-                40.34562,
-                -111.79710,
-                1360.7
-            ],
-            "orientation": {
-                "roll": 0,
-                "pitch": 21.0,
-                "yaw": -175
-            }
+        "recording_url": "http://10.10.12.111:9600",
+        "lla": [40.34562, -111.79710, 1360.7],
+        "orientation": {
+            "roll": 0,
+            "pitch": 21.0,
+            "yaw": -175
         }
     }
 
